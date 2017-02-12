@@ -1,3 +1,4 @@
+
 // User
 const initialState = {
   lastUpdated: 0,
@@ -85,7 +86,7 @@ const initialState = {
   isFetching: true,
   error: '',
 }
-function ducks (state, action) {
+function ducks (state = initialState, action) {
   switch (action.type) {
 
     case FETCHING_DUCK :
@@ -342,7 +343,7 @@ function count (state, = 0 action) {
   }
 }
 
-function likeCount (state, action){
+export default function likeCount (state = initialState, action){
   switch (action.type) {
 
     case FETCHING_COUNT :
@@ -381,13 +382,12 @@ function likeCount (state, action){
 }
 
 // Users Ducks
-const initialState = {
-  isFetching: false,
-  error: '',
+const initialUsersDuckState = {
   lastUpdated: 0,
-  duckIds: [],
+  duckIds: []
 }
-function usersDuck (state, action) {
+
+function usersDuck (state = initialUsersDuckState, action) {
   switch(action.type) {
     case ADD_SINGLE_USERS_DUCK :
       return {
@@ -400,8 +400,12 @@ function usersDuck (state, action) {
   }
 }
 
+const initialState = {
+  isFetching: false,
+  error: '',
+}
 
-function usersDucks (state, action){
+function usersDucks (state = initialState, action){
   switch (action.type) {
 
     case FETCHING_USERS_DUCKS :

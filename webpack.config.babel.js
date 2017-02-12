@@ -2,21 +2,21 @@ import webpack from 'webpack'
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
+const LAUNCH_COMMAND = process.env.npm_lifecycle_event
+
+const isProduction = LAUNCH_COMMAND === 'production'
+process.env.BABEL_ENV = LAUNCH_COMMAND
+
 const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'dist'),
 }
 
-const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   template: PATHS.app + '/index.html',
   filename: 'index.html',
   inject: 'body'
 })
-
-const LAUNCH_COMMAND = process.env.npm_lifecycle_event
-
-const isProduction = LAUNCH_COMMAND === 'production'
-process.env.BABEL_ENV = LAUNCH_COMMAND
 
 const productionPlugin = new webpack.DefinePlugin({
   'process.env': {
@@ -26,6 +26,7 @@ const productionPlugin = new webpack.DefinePlugin({
 
 const base = {
   entry: [
+    'babel-polyfill',
     PATHS.app
   ],
   output: {
@@ -40,7 +41,7 @@ const base = {
   },
   resolve: {
     root: path.resolve('./app')
-  },
+  }
 }
 
 const developmentConfig = {
@@ -51,13 +52,12 @@ const developmentConfig = {
     inline: true,
     progress: true,
   },
-  plugins: [HtmlWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
+  plugins: [HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
 }
 
 const productionConfig = {
   devtool: 'cheap-module-source-map',
-  plugins: [HtmlWebpackPluginConfig, productionPlugin]
-
+  plugins: [HTMLWebpackPluginConfig, productionPlugin]
 }
 
 export default Object.assign({}, base, isProduction === true ? productionConfig : developmentConfig)

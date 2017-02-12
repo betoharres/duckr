@@ -1,43 +1,43 @@
 import React, {PropTypes} from 'react'
 import {Link} from 'react-router'
 import {container, navContainer, link} from './styles.css'
+import {ModalContainer} from 'containers'
 
 NavLinks.propTypes = ActionLinks.propTypes = Navigation.propTypes = {
   isAuthed: PropTypes.bool.isRequired,
 }
 
-function NavLinks({isAuthed}) {
+function NavLinks ({isAuthed}) {
   return isAuthed === true
   ? <ul>
       <li>
-        <Link className={link}to="/">{'Home'}</Link>
+        <Link className={link}to='/'>{'Home'}</Link>
       </li>
     </ul>
   : null
 }
 
-function ActionLinks({isAuthed}) {
+function ActionLinks ({isAuthed}) {
   return isAuthed === true
   ? <ul>
       <li>
-        <Link className={link}to="/newDuck">{'New Duck'}</Link>
+        <ModalContainer />
       </li>
       <li>
-        <Link className={link}to="/logout">{'Logout'}</Link>
+        <Link className={link}to='/logout'>{'Logout'}</Link>
       </li>
     </ul>
   : <ul>
       <li>
-        <Link className={link}to="/">{'Home'}</Link>
+        <Link className={link}to='/'>{'Home'}</Link>
       </li>
       <li>
-        <Link className={link}to="/auth">{'Authenticate'}</Link>
+        <Link className={link}to='auth'>{'Authenticate'}</Link>
       </li>
     </ul>
 }
 
 export default function Navigation ({isAuthed}) {
-
   return (
     <div className={container}>
       <nav className={navContainer}>

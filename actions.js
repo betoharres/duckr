@@ -175,7 +175,7 @@
   lastUpdated
 }
 
-// userLikes
+// usersLikes
 
 {
   type: FETCHING_LIKES
